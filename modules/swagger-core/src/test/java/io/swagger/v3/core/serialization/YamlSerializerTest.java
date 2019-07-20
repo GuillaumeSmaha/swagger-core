@@ -69,4 +69,19 @@ public class YamlSerializerTest {
 
         assertEquals(serializedYaml, yaml);
     }
+
+    @Test
+    public void testPreserveQuoteAvoidImplicitConversion() throws Exception {
+        final String yaml =
+                "avoidImplicitConversion1: \"yes\"\n" +
+                "avoidImplicitConversion2: \"ON\"\n" +
+                "avoidImplicitConversion3: \"OFF\"\n" +
+                "avoidImplicitConversion4: \"True\"\n";
+
+        JsonNode node = Yaml.mapper().readValue(yaml, JsonNode.class);
+
+        String serializedYaml = Yaml.pretty(node);
+
+        assertEquals(serializedYaml, yaml);
+    }
 }
